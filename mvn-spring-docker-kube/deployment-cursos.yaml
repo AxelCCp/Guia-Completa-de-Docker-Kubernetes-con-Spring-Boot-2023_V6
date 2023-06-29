@@ -19,14 +19,32 @@ spec:
             - containerPort: 8002
           env:
             - name: PORT
-              value: "8002"
+              valueFrom:
+                configMapKeyRef:
+                  name: ms-cursos-server
+                  key: port
             - name: DB_HOST
-              value: "postgres14:5432"
+              valueFrom:
+                configMapKeyRef:
+                  name: ms-cursos-server
+                  key: db_host
             - name: DB_DATABASE
-              value: db-ms-docker-kube
+              valueFrom:
+                configMapKeyRef:
+                  name: ms-cursos-server
+                  key: database
             - name: DB_USERNAME
-              value: postgres
+              valueFrom:
+                secretKeyRef:
+                  name: ms-cursos-server
+                  key: username
             - name: DB_PASSWORD
-              value: sasa
+              valueFrom:
+                secretKeyRef:
+                  name: ms-cursos-server
+                  key: password
             - name: USUARIOS_URL
-              value: "ms-usuarios-server:8001"
+              valueFrom:
+                configMapKeyRef:
+                  name: ms-cursos-server
+                  key: usuario_url
